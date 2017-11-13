@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+let _ = require('lodash');
 
 class Board extends React.Component{
 
@@ -34,7 +35,9 @@ class Board extends React.Component{
   }
 
   isWon(mark){
-    return this.state.innerBoard.some( row => row.every( (el) => el === mark) )
+    let transposed = _.zip.apply(_, this.state.innerBoard )
+    return ( this.state.innerBoard.some(row => row.every((el) => el === mark)) ||
+            transposed.some(row => row.every((el) => el === mark)))
   }
 
   isOver(){
