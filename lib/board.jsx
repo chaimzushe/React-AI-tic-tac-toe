@@ -35,9 +35,13 @@ class Board extends React.Component{
   }
 
   isWon(mark){
-    let transposed = _.zip.apply(_, this.state.innerBoard )
-    return ( this.state.innerBoard.some(row => row.every((el) => el === mark)) ||
-            transposed.some(row => row.every((el) => el === mark)))
+    let grid = this.state.innerBoard
+    let transposed = _.zip.apply(_, grid )
+    return ( grid.some(row => row.every((el) => el === mark)) ||
+            transposed.some(row => row.every((el) => el === mark)) ||
+            (grid[0][0] === mark && grid[1][1] === mark && grid[2][2]) ||
+            (grid[0][2] === mark && grid[1][1] === mark && grid[2][0]))
+
   }
 
   isOver(){
