@@ -27,13 +27,15 @@ class Board extends React.Component{
   }
 
   handleClick(e){
-
+    debugger
     if(e.target.innerText != "" || this.state.winner) return;
+    let i = e.target.className[0]
     let pos = this.coord_map[e.target.className[0]];
     this.state.innerBoard[pos[0]][pos[1]] = this.mark;
-    e.target.innerText = this.mark;
+    let new_squares =  this.state.squares.slice()
+    new_squares[i] = this.mark;
+    this.setState({ squares: new_squares });
     if (this.isWon(this.mark) || this.isOver() ) alert(`${this.state.winner}`)
-    debugger
     this.mark = (this.mark == 'x' ? 'o' : 'x');
   }
 
