@@ -25,22 +25,21 @@ class Board extends React.Component{
   }
 
   handleClick(e){
-
     if(e.target.innerText != "") return;
     let pos = this.coord_map[e.target.className[0]];
     this.state.innerBoard[pos[0]][pos[1]] = this.mark;
     e.target.innerText = this.mark;
+    if (this.isOver() || this.isWon(this.mark)) alert("Game over!!")
     this.mark = (this.mark == 'x' ? 'o' : 'x');
-    this.isOver()
   }
 
-  isWon(){
-
+  isWon(mark){
+    return this.state.innerBoard.some( row => row.every( (el) => el === mark) )
   }
 
   isOver(){
-     let result = [].concat.apply([], this.state.innerBoard);
-     console.log(result.every( sqr => sqr != null));
+     let flattned = [].concat.apply([], this.state.innerBoard);
+     return flattned.every( sqr => sqr != null);
   }
 
   render(){
