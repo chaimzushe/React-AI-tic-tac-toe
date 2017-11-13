@@ -43,13 +43,15 @@ class Board extends React.Component{
 resetGame(){
   alert(`${this.state.winner}`)
   this.setState({
+    innerBoard: [[null,null,null], [null,null,null], [null,null,null] ],
     squares: [" ", " ", " "," "," "," "," "," "," "],
-    winnner: null,
+    winner: null,
   })
 
 }
 
   isWon(mark){
+
     let grid = this.state.innerBoard
     let transposed = _.zip.apply(_, grid )
     if (grid.some(row => row.every((el) => el === mark)) ||
