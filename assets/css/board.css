@@ -1,0 +1,29 @@
+#root{
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+#board{
+  display: flex;
+  flex-wrap: wrap;
+  width: 500px;
+  height: 500px;
+  justify-content: center;
+  align-items: center;
+}
+
+#sqr{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ font-size: 80px;
+  border: 1px solid blue;
+  box-sizing: border-box;
+  height: 33.333%;
+  width: 33.333%;
+}
+
+#sqr:hover{
+  background: blue;
+  color: black;
+}
