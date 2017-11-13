@@ -3,15 +3,23 @@ import ReactDOM from 'react-dom';
 
 class Board extends React.Component{
 
-  initialize(){
-
+  constructor(){
+    super()
+    this.state = {
+      squares: [" ", " ", " "," "," "," "," "," "," "],
+    }
+    this.mark =  "x"
   }
 
+  handleClick(e){
+
+    if(e.target.innerText != "") return;
+    e.target.innerText = this.mark;
+    this.mark = (this.mark == 'x' ? 'o' : 'x');
+  }
 
   render(){
-    this.state = {
-      squares: [1,2,3,4,5,6,7,8,9]
-    }
+
     return(
     <ul id="board">
       {this.state.squares.map((sqr, i) => {
@@ -19,8 +27,9 @@ class Board extends React.Component{
         return <li
           key={`${sqr, i}`}
           id="sqr"
-          className={`sqr:${sqr}`}>
-          <p></p>
+          className={`sqr:${sqr}`}
+          onClick={this.handleClick.bind(this)}>
+          <p>{this.state.squares[i]}</p>
         </li>
       })}
     </ul>)
