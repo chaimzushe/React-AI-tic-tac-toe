@@ -21,32 +21,40 @@ class Board extends React.Component{
     this.state = {
       innerBoard: [[null,null,null], [null,null,null], [null,null,null] ],
       squares: [" ", " ", " "," "," "," "," "," "," "],
+      winner: null,
     }
     this.mark =  "x"
   }
 
   handleClick(e){
-    if(e.target.innerText != "") return;
+
+    if(e.target.innerText != "" || this.state.winner) return;
     let pos = this.coord_map[e.target.className[0]];
     this.state.innerBoard[pos[0]][pos[1]] = this.mark;
     e.target.innerText = this.mark;
-    if (this.isOver() || this.isWon(this.mark)) alert("Game over!!")
+    if (this.isWon(this.mark) || this.isOver() ) alert(`${this.state.winner}`)
+    debugger
     this.mark = (this.mark == 'x' ? 'o' : 'x');
   }
 
   isWon(mark){
     let grid = this.state.innerBoard
     let transposed = _.zip.apply(_, grid )
-    return ( grid.some(row => row.every((el) => el === mark)) ||
-            transposed.some(row => row.every((el) => el === mark)) ||
-            (grid[0][0] === mark && grid[1][1] === mark && grid[2][2]) ||
-            (grid[0][2] === mark && grid[1][1] === mark && grid[2][0]))
-
+    if (grid.some(row => row.every((el) => el === mark)) ||
+        transposed.some(row => row.every((el) => el === mark)) ||
+        (grid[0][0] === mark && grid[1][1] === mark && grid[2][2]) ||
+        (grid[0][2] === mark && grid[1][1] === mark && grid[2][0])){
+          this.state.winner = `Winner is ${mark}`;
+        }
+        return this.state.winner;
   }
 
   isOver(){
-     let flattned = [].concat.apply([], this.state.innerBoard);
-     return flattned.every( sqr => sqr != null);
+    let flattned = [].concat.apply([], this.state.innerBoard);
+    if(flattned.every( sqr => sqr != null)){
+      this.state.winner= "It's a tie";
+    }
+    return this.state.winner;
   }
 
   render(){
