@@ -35,7 +35,7 @@ class Board extends React.Component{
     new_squares[i] = this.mark;
     this.setState({ squares: new_squares })
     if (this.isWon(this.mark) || this.isOver() ) {
-    setTimeout( this.resetGame.bind(this) , 1000);
+      setTimeout( this.resetGame.bind(this) , 1000);
     }
     this.mark = (this.mark == 'x' ? 'o' : 'x');
 }
@@ -64,6 +64,7 @@ resetGame(){
   }
 
   isOver(){
+    if (this.state.winner) return true;
     let flattned = [].concat.apply([], this.state.innerBoard);
     if(flattned.every( sqr => sqr != null)){
       this.state.winner= "It's a tie";
