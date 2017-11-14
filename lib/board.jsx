@@ -65,7 +65,6 @@ resetGame(winningMark){
     let newBoard = new Board()
     newBoard.innerBoard = this.innerBoard.map( arr => arr.slice() )
     newBoard.squares =  this.squares.slice();
-    newBoard.mark = (this.mark === "o" ? "x" : "o");
     return newBoard;
   }
 

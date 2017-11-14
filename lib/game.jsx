@@ -11,36 +11,32 @@ class Game extends React.Component {
     this.computerPlayer =  new GeniusComputer()
   }
 
-  handleClick(e){
-    if(e.target.innerText != "" || this.board.winner) return;
-    let i = e.target.className[0]
-    let pos = this.board.coord_map[i];
+  processGuess(i, pos){
+    if(this.board.squares[i] != " " || this.board.winner) return;
     this.board.squares[i]= this.board.mark;
     this.board.innerBoard[pos[0]][pos[1]] = this.board.mark;
     if (this.board.isWon(this.board.mark) || this.board.isOver() ) {
       setTimeout( this.board.resetGame.bind(this) , 1000);
-
     }
-
     if(!this.board.winner) this.board.mark = (this.board.mark == 'x' ? 'o' : 'x');
     this.forceUpdate()
-    this.computersTurn = true;
+    this.computersTurn = !this.computersTurn
     if(this.computersTurn) return this.processComputerGuess();
+
+  }
+
+  handleClick(e){
+
+    let i = e.target.className[0]
+    let pos = this.board.coord_map[i];
+    this.processGuess(i, pos)
+
   }
 
   processComputerGuess(){
     let i = this.computerPlayer.makeMove(this.board, this.mark);
     let pos = this.board.coord_map[i];
-    this.board.squares[i]= this.board.mark;
-    this.board.innerBoard[pos[0]][pos[1]] = this.board.mark;
-    if (this.board.isWon(this.board.mark) || this.board.isOver() ) {
-      setTimeout( this.board.resetGame.bind(this) , 1000);
-
-    }
-
-    if(!this.board.winner) this.board.mark = (this.board.mark == 'x' ? 'o' : 'x');
-    this.forceUpdate()
-    this.computersTurn = false;
+    this.processGuess(i, pos)
   }
 
   render(){
