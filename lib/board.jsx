@@ -6,7 +6,7 @@ let _ = require('lodash');
 
 class Board {
 
-  constructor(prevPos){
+  constructor(){
 
 
     this.coord_map = {
@@ -26,7 +26,7 @@ class Board {
     this.winner = null;
     this.winningMark =  null;
     this.mark =  "x"
-    this.prevPos = prevPos
+
   }
 
 
@@ -39,7 +39,6 @@ resetGame(winningMark){
   }
 
 
-
   isWon(mark){
     let grid = this.innerBoard
     let transposed = _.zip.apply(_, grid )
@@ -48,7 +47,7 @@ resetGame(winningMark){
         (grid[0][0] === mark && grid[1][1] === mark && grid[2][2]) ||
         (grid[0][2] === mark && grid[1][1] === mark && grid[2][0])){
           this.winningMark = this.mark
-          this.winner = `Winner is ${mark}`;
+          this.winner =  `${mark} won`;
         }
     return this.winner;
   }
