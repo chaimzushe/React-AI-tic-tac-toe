@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import  from 'react-dom';
+
 
 let _ = require('lodash');
 
-class Board extends React.Component{
+class Board {
 
-  constructor(){
+  constructor(prevPos){
 
-    super()
+
     this.coord_map = {
       0: [0,0],
       1: [0,1],
@@ -20,83 +20,56 @@ class Board extends React.Component{
       7: [2,1],
       8: [2,2]
     }
-    this.state = {
-      innerBoard: [[null,null,null], [null,null,null], [null,null,null] ],
-      squares: [" ", " ", " "," "," "," "," "," "," "],
-      winner: null,
-      winningMark: null
-    }
+
+    this.innerBoard = [[null,null,null], [null,null,null], [null,null,null] ];
+    this.squares =  [" ", " ", " "," "," "," "," "," "," "];
+    this.winner = null;
+    this.winningMark =  null;
     this.mark =  "x"
+    this.prevPos = prevPos
   }
 
-  handleClick(e){
-    if(e.target.innerText != "" || this.state.winner) return;
-    let i = e.target.className[0]
-    let pos = this.coord_map[e.target.className[0]];
-    this.state.innerBoard[pos[0]][pos[1]] = this.mark;
-    let new_squares =  this.state.squares.slice()
-    new_squares[i] = this.mark;
-    this.setState({ squares: new_squares })
-    if (this.isWon(this.mark) || this.isOver() ) {
-      setTimeout( this.resetGame.bind(this) , 1000);
-    }
-    if(!this.state.winner) this.mark = (this.mark == 'x' ? 'o' : 'x');
-}
+
 
 resetGame(winningMark){
-
-  this.setState({
-    innerBoard: [[null,null,null], [null,null,null], [null,null,null] ],
-    squares: [" ", " ", " "," "," "," "," "," "," "],
-    winner: null,
-    winningMark: null
-  })
+    this.innerBoard = [[null,null,null], [null,null,null], [null,null,null] ];
+    this.squares = [" ", " ", " "," "," "," "," "," "," "];
+    this.winner =  null;
+    this.winningMark = null;
+  }
 
 
-}
 
   isWon(mark){
-
-    let grid = this.state.innerBoard
+    let grid = this.innerBoard
     let transposed = _.zip.apply(_, grid )
     if (grid.some(row => row.every((el) => el === mark)) ||
         transposed.some(row => row.every((el) => el === mark)) ||
         (grid[0][0] === mark && grid[1][1] === mark && grid[2][2]) ||
         (grid[0][2] === mark && grid[1][1] === mark && grid[2][0])){
-          this.state.winningMark = this.mark
-          this.state.winner = `Winner is ${mark}`;
+          this.winningMark = this.mark
+          this.winner = `Winner is ${mark}`;
         }
-        return this.state.winner;
+    return this.winner;
   }
 
   isOver(){
-    if (this.state.winner) return true;
-    let flattned = [].concat.apply([], this.state.innerBoard);
+    if (this.winner) return true;
+    let flattned = [].concat.apply([], this.innerBoard);
     if(flattned.every( sqr => sqr != null)){
-      this.state.winner= "It's a tie";
+      this.winner= "It's a tie";
     }
-    return this.state.winner;
+    return this.winner;
   }
 
-  render(){
-
-    return(
-    <ul id="board">
-      {this.state.squares.map((sqr, i) => {
-        let className;
-        if(this.state.winningMark){
-           className = this.state.squares[i] === this.state.winningMark ? 'winner': 'gibberish'
-        }
-        return <li
-          key={`${sqr, i}`}
-          id="sqr"
-          className={`${i}:sqr ${className}`}
-          onClick={this.handleClick.bind(this)}>
-          <p>{this.state.squares[i]}</p>
-        </li>
-      })}
-    </ul>)
+  dup(){
+    let newBoard = new Board()
+    newBoard.innerBoard = this.innerBoard.map( arr => arr.slice() )
+    newBoard.squares =  this.squares.slice();
+    newBoard.mark = (this.mark === "o" ? "x" : "o");
+    return newBoard;
   }
+
 }
 
 export default Board;
