@@ -22,6 +22,7 @@ class Board extends React.Component{
       innerBoard: [[null,null,null], [null,null,null], [null,null,null] ],
       squares: [" ", " ", " "," "," "," "," "," "," "],
       winner: null,
+      winningMark: null
     }
     this.mark =  "x"
   }
@@ -35,18 +36,20 @@ class Board extends React.Component{
     new_squares[i] = this.mark;
     this.setState({ squares: new_squares })
     if (this.isWon(this.mark) || this.isOver() ) {
-      setTimeout( this.resetGame.bind(this) , 1000);
+      setTimeout( this.resetGame.bind(this) , 5000);
     }
-    this.mark = (this.mark == 'x' ? 'o' : 'x');
+    if(!this.state.winner) this.mark = (this.mark == 'x' ? 'o' : 'x');
 }
 
-resetGame(){
-  alert(`${this.state.winner}`)
+resetGame(winningMark){
+
   this.setState({
     innerBoard: [[null,null,null], [null,null,null], [null,null,null] ],
     squares: [" ", " ", " "," "," "," "," "," "," "],
     winner: null,
+    winningMark: null
   })
+
 
 }
 
@@ -58,6 +61,7 @@ resetGame(){
         transposed.some(row => row.every((el) => el === mark)) ||
         (grid[0][0] === mark && grid[1][1] === mark && grid[2][2]) ||
         (grid[0][2] === mark && grid[1][1] === mark && grid[2][0])){
+          this.state.winningMark = this.mark
           this.state.winner = `Winner is ${mark}`;
         }
         return this.state.winner;
@@ -77,11 +81,14 @@ resetGame(){
     return(
     <ul id="board">
       {this.state.squares.map((sqr, i) => {
-
+        let className = "jibrish";
+        if(this.state.winningMark && this.state.squares[i] === this.state.winningMark) {
+          className = 'winner';
+        }
         return <li
           key={`${sqr, i}`}
           id="sqr"
-          className={`${i}:sqr`}
+          className={`${i}:sqr ${className}`}
           onClick={this.handleClick.bind(this)}>
           <p>{this.state.squares[i]}</p>
         </li>
