@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import  from 'react-dom';
+
 let _ = require('lodash');
 
 class Board extends React.Component{
@@ -36,7 +38,7 @@ class Board extends React.Component{
     new_squares[i] = this.mark;
     this.setState({ squares: new_squares })
     if (this.isWon(this.mark) || this.isOver() ) {
-      setTimeout( this.resetGame.bind(this) , 5000);
+      setTimeout( this.resetGame.bind(this) , 1000);
     }
     if(!this.state.winner) this.mark = (this.mark == 'x' ? 'o' : 'x');
 }
@@ -81,9 +83,9 @@ resetGame(winningMark){
     return(
     <ul id="board">
       {this.state.squares.map((sqr, i) => {
-        let className = "jibrish";
-        if(this.state.winningMark && this.state.squares[i] === this.state.winningMark) {
-          className = 'winner';
+        let className;
+        if(this.state.winningMark){
+           className = this.state.squares[i] === this.state.winningMark ? 'winner': 'gibberish'
         }
         return <li
           key={`${sqr, i}`}

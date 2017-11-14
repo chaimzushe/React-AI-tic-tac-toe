@@ -24,9 +24,14 @@
 }
 
 #sqr:hover{
-  background: blue;
-  color: black;
+  background-color: blue;
 }
-.winner{
+
+.winner, .winner:hover{
+  z-index: 10;
   background-color: green;
+}
+.gibberish .gibberish:hover{
+  z-index: 10;
+  background-color: red;
 }
