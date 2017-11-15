@@ -40,8 +40,9 @@ resetGame(winningMark){
     let transposed = _.zip.apply(_, grid )
     if (grid.some(row => row.every((el) => el === mark)) ||
         transposed.some(row => row.every((el) => el === mark)) ||
-        (grid[0][0] === mark && grid[1][1] === mark && grid[2][2]) ||
-        (grid[0][2] === mark && grid[1][1] === mark && grid[2][0])){
+        (grid[0][0] === mark && grid[1][1] === mark && grid[2][2] === mark) ||
+        (grid[0][2] === mark && grid[1][1] === mark && grid[2][0] === mark)){
+          debugger
           this.winner = `${mark} won!`;
         }
     return this.winner;

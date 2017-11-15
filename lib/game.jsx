@@ -18,6 +18,7 @@ class Game extends React.Component {
     this.board.innerBoard[pos[0]][pos[1]] = this.board.mark; // mark the inner board for chekcing for win.
     this.forceUpdate() // force a re-rended for changing the squares.
     if (this.board.isOver()) { // notify abd reset if game is over because of this move.
+      this.forceUpdate()
       setTimeout( alert.bind(null, "Game over!" ), 2000);
     } else{
        this.board.mark = (this.board.mark == 'x' ? 'o' : 'x'); // swap mark for next player
@@ -33,7 +34,7 @@ class Game extends React.Component {
   }
 
   getComputerGuess(){
-    let i = this.computerPlayer.makeMove(this.board, this.board.mark);
+    let i = this.computerPlayer.makeMove(this.board);
     let pos = this.board.coord_map[i];
     this.processGuess(i, pos)
   }
