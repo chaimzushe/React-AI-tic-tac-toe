@@ -18,24 +18,22 @@ class Game extends React.Component {
     this.board.innerBoard[pos[0]][pos[1]] = this.board.mark; // mark the inner board for chekcing for win.
     this.forceUpdate() // force a re-rended for changing the squares.
     if (this.board.isOver()) { // notify abd reset if game is over because of this move.
-      setTimeout( alert.bind(null, "game over") , 2000);
+      setTimeout( alert.bind(null, "Game over!" ), 2000);
     } else{
        this.board.mark = (this.board.mark == 'x' ? 'o' : 'x'); // swap mark for next player
        this.computersTurn = !this.computersTurn  // toggle computers turn.
-       if(this.computersTurn) return this.processComputerGuess();// give the computer a chance to guess.
-    }
+      if(this.computersTurn) return this.getComputerGuess(); // give the computer a chance to guess, if hid turn.
+     }
   }
 
   handleClick(e){
-
-    let i = e.target.className[0]
-    let pos = this.board.coord_map[i];
+    let i = e.target.className[0] // grab the square clicked on by looking at its id.
+    let pos = this.board.coord_map[i]; // find out its position in the inner grid.
     this.processGuess(i, pos)
-
   }
 
-  processComputerGuess(){
-    let i = this.computerPlayer.makeMove(this.board, this.mark);
+  getComputerGuess(){
+    let i = this.computerPlayer.makeMove(this.board, this.board.mark);
     let pos = this.board.coord_map[i];
     this.processGuess(i, pos)
   }
