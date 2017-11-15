@@ -34,7 +34,7 @@ class Game extends React.Component {
   }
 
   getComputerGuess(){
-    let i = this.computerPlayer.makeMove(this.board);
+    let i = this.computerPlayer.makeMove(this.board, this.board.mark);
     let pos = this.board.coord_map[i];
     this.processGuess(i, pos)
   }
