@@ -6,23 +6,24 @@ import GeniusComputer from './genious_computer_player';
 class Game extends React.Component {
   constructor(){
     super()
-    this.computersTurn = false
+    this.computersTurn = false;
     this.board = new Board();
-    this.computerPlayer =  new GeniusComputer()
+    this.computerPlayer =  new GeniusComputer();
   }
 
   processGuess(i, pos){
+  // dont let interaction if trying to click a not-emptysquare or if the game is over
     if(this.board.squares[i] != " " || this.board.winner) return;
-    this.board.squares[i]= this.board.mark;
-    this.board.innerBoard[pos[0]][pos[1]] = this.board.mark;
-    if (this.board.isWon(this.board.mark) || this.board.isOver() ) {
-      setTimeout( this.board.resetGame.bind(this) , 1000);
+    this.board.squares[i] = this.board.mark; // mark the square for display.
+    this.board.innerBoard[pos[0]][pos[1]] = this.board.mark; // mark the inner board for chekcing for win.
+    this.forceUpdate() // force a re-rended for changing the squares.
+    if (this.board.isOver()) { // notify abd reset if game is over because of this move.
+      setTimeout( alert.bind(null, "game over") , 2000);
+    } else{
+       this.board.mark = (this.board.mark == 'x' ? 'o' : 'x'); // swap mark for next player
+       this.computersTurn = !this.computersTurn  // toggle computers turn.
+       if(this.computersTurn) return this.processComputerGuess();// give the computer a chance to guess.
     }
-    if(!this.board.winner) this.board.mark = (this.board.mark == 'x' ? 'o' : 'x');
-    this.forceUpdate()
-    this.computersTurn = !this.computersTurn
-    if(this.computersTurn) return this.processComputerGuess();
-
   }
 
   handleClick(e){
@@ -40,7 +41,6 @@ class Game extends React.Component {
   }
 
   render(){
-
     return(
       <ul id="board">
         {this.board.squares.map((sqr, i) => {

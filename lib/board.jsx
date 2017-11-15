@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-
 let _ = require('lodash');
 
 class Board {
@@ -24,7 +22,6 @@ class Board {
     this.innerBoard = [[null,null,null], [null,null,null], [null,null,null] ];
     this.squares =  [" ", " ", " "," "," "," "," "," "," "];
     this.winner = null;
-    this.winningMark =  null;
     this.mark =  "x"
 
   }
@@ -35,7 +32,6 @@ resetGame(winningMark){
     this.innerBoard = [[null,null,null], [null,null,null], [null,null,null] ];
     this.squares = [" ", " ", " "," "," "," "," "," "," "];
     this.winner =  null;
-    this.winningMark = null;
   }
 
 
@@ -46,14 +42,13 @@ resetGame(winningMark){
         transposed.some(row => row.every((el) => el === mark)) ||
         (grid[0][0] === mark && grid[1][1] === mark && grid[2][2]) ||
         (grid[0][2] === mark && grid[1][1] === mark && grid[2][0])){
-          this.winningMark = this.mark
-          this.winner =  `${mark} won`;
+          this.winner = `${mark} won!`;
         }
     return this.winner;
   }
 
   isOver(){
-    if (this.winner) return true;
+    if (this.isWon('o') || this.isWon('x')) return true;
     let flattned = [].concat.apply([], this.innerBoard);
     if(flattned.every( sqr => sqr != null)){
       this.winner= "It's a tie";
@@ -64,7 +59,7 @@ resetGame(winningMark){
   dup(){
     let newBoard = new Board()
     newBoard.innerBoard = this.innerBoard.map( arr => arr.slice() )
-    newBoard.squares =  this.squares.slice();
+    newBoard.squares = this.squares.slice();
     return newBoard;
   }
 
