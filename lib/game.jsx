@@ -53,14 +53,11 @@ class Game extends React.Component {
     return(
           <ul id="board">
             {this.board.squares.map((sqr, i) => {
-              let className;
-              if(this.board.winningMark){
-                 className = this.board.squares[i] === this.board.winningMark ? 'winner': 'gibberish'
-              }
+              let color = sqr === "x" ? "red" : "yellow"
               return <li
                 key={`${sqr, i}`}
                 id="sqr"
-                className={`${i}:sqr ${className}`}
+                className={`${i}:sqr, ${color}`}
                 onClick={this.handleClick.bind(this)}>
                 <p>{this.board.squares[i]}</p>
               </li>

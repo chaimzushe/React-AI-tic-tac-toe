@@ -18319,16 +18319,13 @@ var Game = function (_React$Component) {
         'ul',
         { id: 'board' },
         this.board.squares.map(function (sqr, i) {
-          var className = void 0;
-          if (_this2.board.winningMark) {
-            className = _this2.board.squares[i] === _this2.board.winningMark ? 'winner' : 'gibberish';
-          }
+          var color = sqr === "x" ? "red" : "yellow";
           return _react2.default.createElement(
             'li',
             {
               key: '' + (sqr, i),
               id: 'sqr',
-              className: i + ':sqr ' + className,
+              className: i + ':sqr, ' + color,
               onClick: _this2.handleClick.bind(_this2) },
             _react2.default.createElement(
               'p',
