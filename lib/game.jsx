@@ -10,24 +10,30 @@ class Game extends React.Component {
       modal: true,
     }
     this.board = new Board();
-    this.computerPlayer =  new GeniusComputer();
-    this.computersTurn = true;
-    this.getComputerGuess()
+    this.computersTurn = false;
+  }
+
+  restartGame(){
+    this.board = new Board();
+    this.setState({
+      modal: true,
+    })
   }
 
   processGuess(i, pos){
     // dont let interaction if trying to click a not-emptysquare or if the game is over
+    if (this.state.opponent === 'c' && !this.computerPlayer) this.computerPlayer =  new GeniusComputer();
     if(this.board.squares[i] != " " || this.board.winner) return;
     this.board.squares[i] = this.board.mark; // mark the square for display.
-    this.board.innerBoard[pos[0]][pos[1]] = this.board.mark; // mark the inner board for chekcing for win.
-    this.forceUpdate()  // force a re-rended for changing the squares.
+    this.board.innerBoard[pos[0]][pos[1]] = this.board.mark; // mark the inner board for checking for win.
+    this.forceUpdate()  // force a render for changing the squares.
 
-    if (this.board.isOver()) { // notify abd reset if game is over because of this move.
-      setTimeout( alert.bind(null, "Game over!" ), 2000);
+    if (this.board.isOver()) { // notify  if game is over because of this move.
+      setTimeout( this.restartGame.bind(this), 2000);
     } else{
        this.board.mark = (this.board.mark == 'x' ? 'o' : 'x'); // swap mark for next player
        this.computersTurn = !this.computersTurn  // toggle computers turn.
-      if(this.computersTurn) return this.getComputerGuess(); // give the computer a chance to guess, if hid turn.
+      if(this.computersTurn && this.computerPlayer) return this.getComputerGuess(); // give the computer a chance to guess, if hid turn.
      }
   }
 
@@ -62,10 +68,13 @@ class Game extends React.Component {
           </ul>)
        }
 
-  startGame(){
+  startGame(e){
+    const player2 = e.target.className.includes('laptop') ? 'c' : 'h';
     debugger
+    this.board = new Board();
     this.setState({
-      modal: false
+      modal: false,
+      opponent: player2,
     })
   }
 
@@ -80,7 +89,7 @@ class Game extends React.Component {
               <p className="fa fa-user"
                   onClick={this.startGame.bind(this)}>
                 </p>
-                <p className="fa fa-laptop chosen"
+                <p className="fa fa-laptop"
                   onClick={this.startGame.bind(this)}>
                 </p>
               </div>
