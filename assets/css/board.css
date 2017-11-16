@@ -24,7 +24,7 @@
   box-sizing: border-box;
   height: 33.333%;
   width: 33.333%;
-  font-family: fantasy;
+  font-family: 'Roboto', sans-serif;
 }
 
 .red{
@@ -37,3 +37,17 @@
 #sqr:hover{
   background-color: #3980e9;
 }
+
+
+<head>
+  <!-- get the required files from 3rd party sources -->
+  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+  <!-- use the font -->
+  <style>
+    body {
+
+      font-size: 48px;
+    }
+  </style>
+</head>

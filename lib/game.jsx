@@ -22,17 +22,19 @@ class Game extends React.Component {
 
   processGuess(i, pos){
     // dont let interaction if trying to click a not-emptysquare or if the game is over
+    debugger
     if (this.state.opponent === 'c' && !this.computerPlayer) this.computerPlayer =  new GeniusComputer();
     if(this.board.squares[i] != " " || this.board.winner) return;
     this.board.squares[i] = this.board.mark; // mark the square for display.
     this.board.innerBoard[pos[0]][pos[1]] = this.board.mark; // mark the inner board for checking for win.
+    this.computersTurn = !this.computersTurn 
     this.forceUpdate()  // force a render for changing the squares.
 
     if (this.board.isOver()) { // notify  if game is over because of this move.
       setTimeout( this.restartGame.bind(this), 2000);
     } else{
        this.board.mark = (this.board.mark == 'x' ? 'o' : 'x'); // swap mark for next player
-       this.computersTurn = !this.computersTurn  // toggle computers turn.
+     // toggle computers turn.
       if(this.computersTurn && this.computerPlayer) return this.getComputerGuess(); // give the computer a chance to guess, if hid turn.
      }
   }
