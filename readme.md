@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-[Live link]()
+[Live link](https://chaimzushe.github.io/React-tic-tac-toe/)
 
 ### Rules
 
@@ -8,7 +8,7 @@ Since the goal is to get 3 in a row, each person must switch taking turns, first
 
 ### features
 
-  - An unbeatable computer AI **If you win my computers AI, please send me an email with the positions you used to achieve the win, and a way to pay you. I will pay you $5000.00. I promise!**    
+  - An unbeatable computer AI. **If you win my computers AI, please send me an email with the positions you used to achieve the win, and a way to pay you. I will pay you $5000.00. I promise!**    
 
   - Option to play against another human
 
