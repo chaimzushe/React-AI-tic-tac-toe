@@ -42,7 +42,7 @@ resetGame(winningMark){
         transposed.some(row => row.every((el) => el === mark)) ||
         (grid[0][0] === mark && grid[1][1] === mark && grid[2][2] === mark) ||
         (grid[0][2] === mark && grid[1][1] === mark && grid[2][0] === mark)){
-          debugger
+
           this.winner = `${mark} won!`;
         }
     return this.winner;

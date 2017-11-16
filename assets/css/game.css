@@ -17,7 +17,7 @@
   opacity: .8;
   font-size: 18px;
   font-family: "ProximaNova";
-  width: 50%;
+  width: 600px;
   height: 70%;
   background-color: #034e65;
   color: white;
@@ -39,6 +39,12 @@
 
   }
 
+  #instuction{
+    text-align: left;
+    font-size: 32px;
+    color: white;
+  }
+
 #modal-level-wrap{
   display: flex;
   justify-content: space-around;
@@ -54,9 +60,13 @@
   background-color: #16202c;
   padding: 20px;
   color: gray;
+  margin-bottom: 20px;
 }
 
 #modal-level-wrap p:hover{
   color: white;
   background-color: #3980e9;
+}
+.fa-arrow-down{
+  font-size: 30px;
 }
