@@ -67,7 +67,7 @@ class Game extends React.Component {
 
   startGame(e){
     const player2 = e.target.className.includes('laptop') ? 'c' : 'h';
-    debugger
+
     this.board = new Board();
     this.setState({
       modal: false,

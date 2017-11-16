@@ -18340,7 +18340,7 @@ var Game = function (_React$Component) {
     key: 'startGame',
     value: function startGame(e) {
       var player2 = e.target.className.includes('laptop') ? 'c' : 'h';
-      debugger;
+      ;
       this.board = new _board2.default();
       this.setState({
         modal: false,
