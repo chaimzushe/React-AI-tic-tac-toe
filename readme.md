@@ -1,12 +1,18 @@
 # Tic Tac Toe
 
-
-**Please note: If you win my computers AI, please send me an email with the positions you used to achieve the win, and a way to pay you. I will pay you $5000.00. I promise!**  
-
+[Live link]()
 
 ### Rules
 
 Since the goal is to get 3 in a row, each person must switch taking turns, first X, then O. Players must use the board given to them, they cannot add extra sides on to the board. In order to win, the 3 letters must all connect in a straight line in one direction, up or down, left or right, or diagonally.
+
+### features
+
+  - An unbeatable computer AI **If you win my computers AI, please send me an email with the positions you used to achieve the win, and a way to pay you. I will pay you $5000.00. I promise!**    
+
+  - Option to play against another human
+
+  - All built using React components
 
 
 ### History of the game
@@ -67,4 +73,4 @@ If O responds with an edge mark, X is guaranteed to win, by taking center, then 
 
 
 
-###### for further reading see [this](https://en.wikipedia.org/wiki/Tic-tac-toe) article in wikipedia.   
+###### for further reading, see [this article in wikipedia.](https://en.wikipedia.org/wiki/Tic-tac-toe)    
