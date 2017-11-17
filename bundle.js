@@ -18278,11 +18278,17 @@ var Game = function (_React$Component) {
       });
     }
   }, {
+    key: 'startComputerFirst',
+    value: function startComputerFirst() {
+      this.board = new _board2.default();
+      this.getComputerGuess();
+    }
+  }, {
     key: 'processGuess',
     value: function processGuess(i, pos) {
       // dont let interaction if trying to click a not-emptysquare or if the game is over
       debugger;
-      if (this.state.opponent === 'c' && !this.computerPlayer) this.computerPlayer = new _genious_computer_player2.default();
+
       if (this.board.squares[i] != " " || this.board.winner) return;
       this.board.squares[i] = this.board.mark; // mark the square for display.
       this.board.innerBoard[pos[0]][pos[1]] = this.board.mark; // mark the inner board for checking for win.
@@ -18308,8 +18314,10 @@ var Game = function (_React$Component) {
   }, {
     key: 'getComputerGuess',
     value: function getComputerGuess() {
+      if (this.state.opponent === 'c' && !this.computerPlayer) this.computerPlayer = new _genious_computer_player2.default();
       var i = this.computerPlayer.makeMove(this.board, this.board.mark);
       var pos = this.board.coord_map[i];
+      this.computersTurn = true;
       this.processGuess(i, pos);
     }
   }, {
@@ -18317,25 +18325,35 @@ var Game = function (_React$Component) {
     value: function renderBoard() {
       var _this2 = this;
 
+      var button = this.state.opponent === 'c' ? _react2.default.createElement(
+        'button',
+        { onClick: this.startComputerFirst.bind(this) },
+        ' play as o '
+      ) : "";
       return _react2.default.createElement(
-        'ul',
-        { id: 'board' },
-        this.board.squares.map(function (sqr, i) {
-          var color = sqr === "x" ? "red" : "yellow";
-          return _react2.default.createElement(
-            'li',
-            {
-              key: '' + (sqr, i),
-              id: 'sqr',
-              className: i + ':sqr, ' + color,
-              onClick: _this2.handleClick.bind(_this2) },
-            _react2.default.createElement(
-              'p',
-              null,
-              _this2.board.squares[i]
-            )
-          );
-        })
+        'div',
+        { id: 'board-wrap' },
+        _react2.default.createElement(
+          'ul',
+          { id: 'board' },
+          this.board.squares.map(function (sqr, i) {
+            var color = sqr === "x" ? "red" : "yellow";
+            return _react2.default.createElement(
+              'li',
+              {
+                key: '' + (sqr, i),
+                id: 'sqr',
+                className: i + ':sqr, ' + color,
+                onClick: _this2.handleClick.bind(_this2) },
+              _react2.default.createElement(
+                'p',
+                null,
+                _this2.board.squares[i]
+              )
+            );
+          })
+        ),
+        button
       );
     }
   }, {

@@ -20,14 +20,19 @@ class Game extends React.Component {
     })
   }
 
+  startComputerFirst(){
+    this.board = new Board();
+    this.getComputerGuess()
+  }
+
   processGuess(i, pos){
     // dont let interaction if trying to click a not-emptysquare or if the game is over
     debugger
-    if (this.state.opponent === 'c' && !this.computerPlayer) this.computerPlayer =  new GeniusComputer();
+
     if(this.board.squares[i] != " " || this.board.winner) return;
     this.board.squares[i] = this.board.mark; // mark the square for display.
     this.board.innerBoard[pos[0]][pos[1]] = this.board.mark; // mark the inner board for checking for win.
-    this.computersTurn = !this.computersTurn 
+    this.computersTurn = !this.computersTurn
     this.forceUpdate()  // force a render for changing the squares.
 
     if (this.board.isOver()) { // notify  if game is over because of this move.
@@ -46,25 +51,32 @@ class Game extends React.Component {
   }
 
   getComputerGuess(){
+    if (this.state.opponent === 'c' && !this.computerPlayer) this.computerPlayer =  new GeniusComputer();
     let i = this.computerPlayer.makeMove(this.board, this.board.mark);
     let pos = this.board.coord_map[i];
+    this.computersTurn = true;
     this.processGuess(i, pos)
   }
 
   renderBoard(){
+    const button = this.state.opponent === 'c' ? <button onClick={this.startComputerFirst.bind(this)}> play as o </button> : "";
     return(
-          <ul id="board">
-            {this.board.squares.map((sqr, i) => {
-              let color = sqr === "x" ? "red" : "yellow"
-              return <li
-                key={`${sqr, i}`}
-                id="sqr"
-                className={`${i}:sqr, ${color}`}
-                onClick={this.handleClick.bind(this)}>
-                <p>{this.board.squares[i]}</p>
-              </li>
+      <div id="board-wrap">
+
+        <ul id="board">
+          {this.board.squares.map((sqr, i) => {
+          let color = sqr === "x" ? "red" : "yellow"
+          return <li
+              key={`${sqr, i}`}
+              id="sqr"
+              className={`${i}:sqr, ${color}`}
+              onClick={this.handleClick.bind(this)}>
+              <p>{this.board.squares[i]}</p>
+            </li>
             })}
-          </ul>)
+          </ul>
+          {button}
+        </div>)
        }
 
   startGame(e){
