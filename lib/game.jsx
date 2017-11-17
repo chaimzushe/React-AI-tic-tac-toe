@@ -59,7 +59,7 @@ class Game extends React.Component {
 
   renderBoard(){
 
-    const button = this.state.opponent === 'c' ? <button onClick={this.startComputerFirst.bind(this)}> play as o </button> : "";
+    const button = this.state.opponent === 'c' ? <button onClick={this.startComputerFirst.bind(this)}>computer to start </button> : "";
     return(
       <div id="board-wrap">
 

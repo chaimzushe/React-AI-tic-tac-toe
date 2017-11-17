@@ -18324,7 +18324,7 @@ var Game = function (_React$Component) {
       var button = this.state.opponent === 'c' ? _react2.default.createElement(
         'button',
         { onClick: this.startComputerFirst.bind(this) },
-        ' play as o '
+        'computer to start '
       ) : "";
       return _react2.default.createElement(
         'div',

@@ -51,8 +51,14 @@ button{
   margin: 10px;
   width: 80%;
   text-align: center;
-  background-color: orange;
+  background-color: #f44336;
   padding: 10px;
   border-radius: 10px;
   font-family: 'Roboto', sans-serif;
+  opacity: .8;
+}
+
+button:hover{
+  cursor: pointer;
+  opacity: 1;
 }
