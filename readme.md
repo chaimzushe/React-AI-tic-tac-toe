@@ -2,17 +2,21 @@
 
 [Live link](https://chaimzushe.github.io/React-tic-tac-toe/)
 
-### Rules
 
-Since the goal is to get 3 in a row, each person must switch taking turns, first X, then O. Players must use the board given to them, they cannot add extra sides on to the board. In order to win, the 3 letters must all connect in a straight line in one direction, up or down, left or right, or diagonally.
-
-### features
+### Features
 
   - An unbeatable computer AI. **If you win my computers AI, please send me an email with the positions you used to achieve the win, and a way to pay you. I will pay you $5000.00. I promise!**    
 
   - Option to play against another human
 
   - All built using React components
+
+  <img width="714" alt="screen shot 2017-11-17 at 12 32 38 pm" src="https://user-images.githubusercontent.com/20543351/32960603-85dd9c8a-cb93-11e7-9478-dfd3fb8b6815.png">
+
+### Rules
+
+Since the goal is to get 3 in a row, each person must switch taking turns, first X, then O. Players must use the board given to them, they cannot add extra sides on to the board. In order to win, the 3 letters must all connect in a straight line in one direction, up or down, left or right, or diagonally.
+
 
 
 ### History of the game
