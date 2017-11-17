@@ -62,3 +62,22 @@ button:hover{
   cursor: pointer;
   opacity: 1;
 }
+.links{
+  font-family: 'Roboto', sans-serif;
+  height: 100px;
+  width: 700px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  width: 700px;
+  color: white;
+  margin: 30px;
+}
+
+.links a:hover{
+  text-decoration: none;
+  color:  #034e65;
+  text-shadow: none;
+  transition: 100ms linear 0s;
+  outline: 0 none;
+}

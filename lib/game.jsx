@@ -23,7 +23,7 @@ class Game extends React.Component {
   }
 
   processGuess(i, pos){
-    // dont let interaction if trying to click a not-empty square or if the game is over
+    // dont let interaction if trying href click a not-empty square or if the game is over
     this.board.squares[i] = this.board.mark; // mark the square for display.
     this.board.innerBoard[pos[0]][pos[1]] = this.board.mark; // mark the inner board for checking for win.
     this.computersTurn = !this.computersTurn;
@@ -41,11 +41,24 @@ class Game extends React.Component {
   handleClick(e){
 
     let i = e.target.className[0] // grab the square clicked on by looking at its id.
-    debugger
     if(this.board.squares[i] != " " || this.board.isOver()) return;
     let pos = this.board.coord_map[i]; // find out its position in the inner grid.
 
     this.processGuess(i, pos)
+  }
+
+  renderLinks(){
+
+    return(
+      <footer>
+       <ul className="links">
+         <li><a href="http://github.com/chaimzushe" className="fa fa-github"><span>GitHub</span></a></li>
+         <li><a href="https://angel.co/chaim-wilmowsky" className="fa fa-angellist"><span>Angelist</span></a></li>
+         <li><a href="https://www.linkedin.com/in/chaim-zushe-wilmowsky-205446b0/" className="fa fa-linkedin"><span>LinkedIn</span></a></li>
+       </ul>
+    </footer>
+    )
+
   }
 
   getComputerGuess(){
@@ -59,7 +72,7 @@ class Game extends React.Component {
 
   renderBoard(){
 
-    const button = this.state.opponent === 'c' ? <button onClick={this.startComputerFirst.bind(this)}>computer to start </button> : "";
+    const button = this.state.opponent === 'c' ? <button onClick={this.startComputerFirst.bind(this)}>computer to make first move </button> : this.renderLinks();
     return(
       <div id="board-wrap">
 
@@ -105,6 +118,7 @@ class Game extends React.Component {
                 </p>
               </div>
             </div>
+            {this.renderLinks()}
           </div>
         )
       }
@@ -112,7 +126,6 @@ class Game extends React.Component {
 
 
   render(){
-    debugger
        if (this.state.modal) {
          return this.renderModal()
          } else{
