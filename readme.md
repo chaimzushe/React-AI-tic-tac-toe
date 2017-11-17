@@ -11,7 +11,7 @@
 
   - All built using React components
 
-  <img width="714" alt="screen shot 2017-11-17 at 12 32 38 pm" src="https://user-images.githubusercontent.com/20543351/32960603-85dd9c8a-cb93-11e7-9478-dfd3fb8b6815.png">
+  <img width="914" alt="screen shot 2017-11-17 at 12 32 38 pm" src="https://user-images.githubusercontent.com/20543351/32960603-85dd9c8a-cb93-11e7-9478-dfd3fb8b6815.png">
 
 ### Rules
 
