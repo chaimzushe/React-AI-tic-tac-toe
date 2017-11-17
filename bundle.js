@@ -18261,60 +18261,56 @@ var Game = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).call(this));
 
+    _this.computersTurn = false;
+
+    _this.computerPlayer = new _genious_computer_player2.default();
     _this.state = {
       modal: true
     };
     _this.board = new _board2.default();
-    _this.computersTurn = false;
     return _this;
   }
 
   _createClass(Game, [{
-    key: 'restartGame',
-    value: function restartGame() {
-      this.board = new _board2.default();
-      this.setState({
-        modal: true
-      });
-    }
-  }, {
     key: 'startComputerFirst',
     value: function startComputerFirst() {
       this.board = new _board2.default();
+      this.computersTurn = true;
       this.getComputerGuess();
     }
   }, {
     key: 'processGuess',
     value: function processGuess(i, pos) {
-      // dont let interaction if trying to click a not-emptysquare or if the game is over
-      debugger;
-
-      if (this.board.squares[i] != " " || this.board.winner) return;
+      // dont let interaction if trying to click a not-empty square or if the game is over
       this.board.squares[i] = this.board.mark; // mark the square for display.
       this.board.innerBoard[pos[0]][pos[1]] = this.board.mark; // mark the inner board for checking for win.
       this.computersTurn = !this.computersTurn;
-      this.forceUpdate(); // force a render for changing the squares.
-
-      if (this.board.isOver()) {
-        // notify  if game is over because of this move.
-        setTimeout(this.restartGame.bind(this), 2000);
-      } else {
-        this.board.mark = this.board.mark == 'x' ? 'o' : 'x'; // swap mark for next player
-        // toggle computers turn.
-        if (this.computersTurn && this.computerPlayer) return this.getComputerGuess(); // give the computer a chance to guess, if hid turn.
-      }
+      this.board.mark = this.board.mark == 'x' ? 'o' : 'x';
+      if (this.computersTurn) this.getComputerGuess();
+      this.forceUpdate();
+      if (this.board.isOver()) setTimeout(this.restartGame.bind(Game), 2000);
+    }
+  }, {
+    key: 'restartGame',
+    value: function restartGame() {
+      location.reload();
     }
   }, {
     key: 'handleClick',
     value: function handleClick(e) {
+
       var i = e.target.className[0]; // grab the square clicked on by looking at its id.
+      debugger;
+      if (this.board.squares[i] != " " || this.board.isOver()) return;
       var pos = this.board.coord_map[i]; // find out its position in the inner grid.
+
       this.processGuess(i, pos);
     }
   }, {
     key: 'getComputerGuess',
     value: function getComputerGuess() {
-      if (this.state.opponent === 'c' && !this.computerPlayer) this.computerPlayer = new _genious_computer_player2.default();
+      if (!this.computerPlayer) this.computerPlayer = new _genious_computer_player2.default();
+      if (this.state.opponent != "c" || this.board.isOver()) return;
       var i = this.computerPlayer.makeMove(this.board, this.board.mark);
       var pos = this.board.coord_map[i];
       this.computersTurn = true;
@@ -18360,11 +18356,11 @@ var Game = function (_React$Component) {
     key: 'startGame',
     value: function startGame(e) {
       var player2 = e.target.className.includes('laptop') ? 'c' : 'h';
-
-      this.board = new _board2.default();
       this.setState({
+        board: new _board2.default(),
         modal: false,
-        opponent: player2
+        opponent: player2,
+        computersTurn: false
       });
     }
   }, {
@@ -18401,6 +18397,7 @@ var Game = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      debugger;
       if (this.state.modal) {
         return this.renderModal();
       } else {

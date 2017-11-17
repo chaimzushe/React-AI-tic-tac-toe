@@ -6,52 +6,51 @@ import GeniusComputer from './genious_computer_player';
 class Game extends React.Component {
   constructor(){
     super()
+    this.computersTurn = false;
+
+    this.computerPlayer = new GeniusComputer();
     this.state = {
       modal: true,
     }
-    this.board = new Board();
-    this.computersTurn = false;
+    this.board = new Board()
   }
 
-  restartGame(){
-    this.board = new Board();
-    this.setState({
-      modal: true,
-    })
-  }
 
   startComputerFirst(){
-    this.board = new Board();
+    this.board = new Board()
+    this.computersTurn = true;
     this.getComputerGuess()
   }
 
   processGuess(i, pos){
-    // dont let interaction if trying to click a not-emptysquare or if the game is over
-    debugger
-
-    if(this.board.squares[i] != " " || this.board.winner) return;
+    // dont let interaction if trying to click a not-empty square or if the game is over
     this.board.squares[i] = this.board.mark; // mark the square for display.
     this.board.innerBoard[pos[0]][pos[1]] = this.board.mark; // mark the inner board for checking for win.
-    this.computersTurn = !this.computersTurn
-    this.forceUpdate()  // force a render for changing the squares.
+    this.computersTurn = !this.computersTurn;
+    this.board.mark = (this.board.mark == 'x' ? 'o' : 'x');
+    if(this.computersTurn) this.getComputerGuess();
+    this.forceUpdate()
+    if (this.board.isOver()) setTimeout( this.restartGame.bind(Game), 2000);
 
-    if (this.board.isOver()) { // notify  if game is over because of this move.
-      setTimeout( this.restartGame.bind(this), 2000);
-    } else{
-       this.board.mark = (this.board.mark == 'x' ? 'o' : 'x'); // swap mark for next player
-     // toggle computers turn.
-      if(this.computersTurn && this.computerPlayer) return this.getComputerGuess(); // give the computer a chance to guess, if hid turn.
-     }
+  }
+
+  restartGame(){
+    location.reload()
   }
 
   handleClick(e){
+
     let i = e.target.className[0] // grab the square clicked on by looking at its id.
+    debugger
+    if(this.board.squares[i] != " " || this.board.isOver()) return;
     let pos = this.board.coord_map[i]; // find out its position in the inner grid.
+
     this.processGuess(i, pos)
   }
 
   getComputerGuess(){
-    if (this.state.opponent === 'c' && !this.computerPlayer) this.computerPlayer =  new GeniusComputer();
+    if (!this.computerPlayer) this.computerPlayer =  new GeniusComputer();
+    if(this.state.opponent != "c" || this.board.isOver()) return;
     let i = this.computerPlayer.makeMove(this.board, this.board.mark);
     let pos = this.board.coord_map[i];
     this.computersTurn = true;
@@ -59,6 +58,7 @@ class Game extends React.Component {
   }
 
   renderBoard(){
+
     const button = this.state.opponent === 'c' ? <button onClick={this.startComputerFirst.bind(this)}> play as o </button> : "";
     return(
       <div id="board-wrap">
@@ -81,11 +81,11 @@ class Game extends React.Component {
 
   startGame(e){
     const player2 = e.target.className.includes('laptop') ? 'c' : 'h';
-
-    this.board = new Board();
     this.setState({
+      board: new Board(),
       modal: false,
       opponent: player2,
+      computersTurn: false,
     })
   }
 
@@ -112,6 +112,7 @@ class Game extends React.Component {
 
 
   render(){
+    debugger
        if (this.state.modal) {
          return this.renderModal()
          } else{
