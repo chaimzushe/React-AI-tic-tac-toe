@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-[Live link](https://chaimzushe.github.io/React-tic-tac-toe/)
+[Live link](https://chaimzushe.github.io/React-AI-tic-tac-toe/)
 
 
 ### Features
